@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cube Rotate Ver 3D Boom</title>
+    <title>Photo to Video - 3D Cube Animation</title>
     <style>
         body {
             margin: 0;
@@ -14,29 +14,39 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            flex-direction: column;
         }
 
-        canvas {
-            position: absolute;
-        }
-
-        #capture-button {
+        #controls {
             z-index: 10;
             position: fixed;
-            bottom: 20px;
+            top: 10px;
             left: 50%;
             transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        #capture-button,
+        #upload-button {
             padding: 10px 20px;
             color: #fff;
             background-color: #f00;
             border: none;
             cursor: pointer;
         }
+
+        canvas {
+            position: absolute;
+        }
     </style>
 </head>
 
 <body>
-    <button id="capture-button">Start Video Capture</button>
+    <div id="controls">
+        <input type="file" id="upload-button" accept="image/*">
+        <button id="capture-button" disabled>Start Video Capture</button>
+    </div>
     <canvas id="webgl-canvas"></canvas>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://unpkg.com/ccapture.js@1.0.9/build/CCapture.all.min.js"></script>
@@ -56,28 +66,48 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
             document.body.appendChild(renderer.domElement);
 
-            // Cube
-            const geometry = new THREE.BoxGeometry();
-            const texture = new THREE.TextureLoader().load('path/to/your/logo.png'); // Replace with your logo
-            const material = new THREE.MeshBasicMaterial({ map: texture });
-            cube = new THREE.Mesh(geometry, material);
-            scene.add(cube);
-
             // Capturer for video recording
             capturer = new CCapture({ format: 'webm', framerate: 30 });
 
-            // Event listener for capture button
+            // Event listeners
+            document.getElementById('upload-button').addEventListener('change', handleImageUpload);
             document.getElementById('capture-button').addEventListener('click', startRecording);
 
             animate();
         }
 
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const texture = new THREE.TextureLoader().load(e.target.result);
+                    createCube(texture);
+                    document.getElementById('capture-button').disabled = false;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function createCube(texture) {
+            if (cube) {
+                scene.remove(cube);
+            }
+
+            const geometry = new THREE.BoxGeometry();
+            const material = new THREE.MeshBasicMaterial({ map: texture });
+            cube = new THREE.Mesh(geometry, material);
+            scene.add(cube);
+        }
+
         function animate() {
             requestAnimationFrame(animate);
 
-            // Rotate the cube
-            cube.rotation.x += 0.01;
-            cube.rotation.y += 0.01;
+            if (cube) {
+                // Rotate the cube
+                cube.rotation.x += 0.01;
+                cube.rotation.y += 0.01;
+            }
 
             // Render the scene
             renderer.render(scene, camera);
