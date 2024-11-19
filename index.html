@@ -123,11 +123,29 @@
 
   <script>
     const sections = document.querySelectorAll('.section h2');
+
     sections.forEach(section => {
       section.addEventListener('click', () => {
+        // Hide all other sections
+        sections.forEach(sec => {
+          if (sec !== section) {
+            sec.classList.remove('active');
+            sec.nextElementSibling.style.display = 'none';
+            sec.querySelector('.circle').textContent = '+';
+          }
+        });
+
+        // Toggle the clicked section
         section.classList.toggle('active');
         const circle = section.querySelector('.circle');
-        circle.textContent = circle.textContent === "+" ? "-" : "+";
+        const content = section.nextElementSibling;
+        if (section.classList.contains('active')) {
+          content.style.display = 'block';
+          circle.textContent = '-';
+        } else {
+          content.style.display = 'none';
+          circle.textContent = '+';
+        }
       });
     });
   </script>
