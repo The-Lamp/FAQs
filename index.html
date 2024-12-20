@@ -9,8 +9,8 @@
             margin: 0;
             padding: 0;
             background-color: #121212;
-            color: white;
             font-family: Arial, sans-serif;
+            color: white;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -19,37 +19,33 @@
         .container {
             text-align: center;
             max-width: 600px;
+            padding: 20px;
         }
-        h1 {
-            color: #9c84ef;
+        .container h1 {
             font-size: 48px;
-            margin-bottom: 20px;
+            color: #9c84ef;
+            margin-bottom: 10px;
         }
-        p {
+        .container p {
             font-size: 18px;
             line-height: 1.6;
+            margin-bottom: 30px;
         }
         .buttons {
-            margin-top: 30px;
             display: flex;
-            justify-content: center;
-            gap: 20px;
+            justify-content: space-between;
+            align-items: center;
         }
-        .button {
-            width: 50px;
-            height: 50px;
+        .buttons .button {
             background-color: transparent;
-            border: 2px solid #9c84ef;
+            border: none;
+            font-size: 36px;
             color: #9c84ef;
-            border-radius: 50%;
-            font-size: 24px;
-            font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: color 0.3s ease;
         }
-        .button:hover {
-            background-color: #9c84ef;
-            color: #121212;
+        .buttons .button:hover {
+            color: #ffffff;
         }
     </style>
 </head>
@@ -102,6 +98,9 @@
             currentIndex = (currentIndex + 1) % interests.length;
             updateContent();
         });
+
+        // Initialize with the first interest
+        updateContent();
     </script>
 </body>
 </html>
