@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- Last Published: Thu Jun 30 2022 21:14:17 GMT+0000 (Coordinated Universal Time) -->
 <html data-wf-domain="swiper-overlapping-cards.webflow.io" data-wf-page="62bdc60aa9bea37ed0d24cae" data-wf-site="62bdc60aa9bea33fbed24cad" class=" w-mod-js">
 
 <head>
@@ -8,13 +7,17 @@
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <link href="css/swiper-overlapping-cards.d317b7935.css" rel="stylesheet" type="text/css">
     <script type="text/javascript">
-        !function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);
+        !function(o, c) {
+            var n = c.documentElement,
+                t = " w-mod-";
+            n.className += t + "js", ("ontouchstart" in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch")
+        }(window, document);
     </script>
     <link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
     <link href="images/webclip.png" rel="apple-touch-icon">
     <style>
         body .swiper-slide.is-photos {
-        	display: block !important;
+            display: block !important;
         }
     </style>
 </head>
@@ -24,38 +27,38 @@
         <div class="global-styles">
             <div class="html w-embed">
                 <style>
-                    /* Max Font Size */
                     @media screen and (min-width:1400px) {
-                     body {font-size: 0.875rem;}
+                        body {
+                            font-size: 0.875rem;
+                        }
                     }
-                    
-                    /* Main Variables */
+
                     :root {
-                      --main-dark: black;
-                      --main-light: white;
+                        --main-dark: black;
+                        --main-light: white;
                     }
-                    
-                    /* Global Styles */
+
                     ::selection {
-                    	background: var(--main-dark);
-                      color: var(--main-light);
-                      text-shadow: none;
+                        background: var(--main-dark);
+                        color: var(--main-light);
+                        text-shadow: none;
                     }
-                    img::selection, svg::selection {
-                    	background: transparent;
+
+                    img::selection,
+                    svg::selection {
+                        background: transparent;
                     }
-                    
-                    /* Link color inherits from parent font color  */
+
                     a {
-                    	color: inherit;
+                        color: inherit;
                     }
-                    
-                    /* Project CSS */
+
                     .swiper-slide.is-photos {
-                    	display: none;
+                        display: none;
                     }
+
                     .swiper-slide.is-photos:first-child {
-                    	display: block;
+                        display: block;
                     }
                 </style>
             </div>
@@ -125,13 +128,13 @@
                         <div class="slider_right">
                             <div class="swiper is-photos w-dyn-list">
                                 <div role="list" class="swiper-wrapper is-photos w-dyn-items">
-                                    <div style="background-image:url(" https:="" cdn.prod.website-files.com="" 62bdc71c057cb67c71e552aa="" 62bdf0f7904e7cee3910f1dd_62ba20ccf0df650d368255f0_pexels-cottonbro-7439121.jpeg ")"="" role="listitem" class="swiper-slide is-photos w-dyn-item">
+                                    <div style="background-image:url('example.jpg')" role="listitem" class="swiper-slide is-photos w-dyn-item">
                                         <div class="slider_height"></div>
                                     </div>
-                                    <div style="background-image:url(" https:="" cdn.prod.website-files.com="" 62bdc71c057cb67c71e552aa="" 62bdf0fe985d3ff7fc1fd0c3_62ba212cf0df657c5a8258fd_pexels-cottonbro-7441745.jpeg ")"="" role="listitem" class="swiper-slide is-photos w-dyn-item">
+                                    <div style="background-image:url('example.jpg')" role="listitem" class="swiper-slide is-photos w-dyn-item">
                                         <div class="slider_height"></div>
                                     </div>
-                                    <div style="background-image:url(" https:="" cdn.prod.website-files.com="" 62bdc71c057cb67c71e552aa="" 62bdf10c9caef2f43f6fac71_62ba2104d647ec85f601882c_pexels-cottonbro-7437094.jpeg ")"="" role="listitem" class="swiper-slide is-photos w-dyn-item">
+                                    <div style="background-image:url('example.jpg')" role="listitem" class="swiper-slide is-photos w-dyn-item">
                                         <div class="slider_height"></div>
                                     </div>
                                 </div>
@@ -149,44 +152,29 @@
 
     <script>
         let photoSwiper = new Swiper(".swiper.is-photos", {
-          effect: "cards",
-          grabCursor: true,
-          loop: true,
-          keyboard: true,
-          // Navigation arrows
-          navigation: {
-            nextEl: ".arrow.is-right",
-            prevEl: ".arrow.is-left"
-          }
+            effect: "cards",
+            grabCursor: true,
+            loop: true,
+            keyboard: true,
+            navigation: {
+                nextEl: ".arrow.is-right",
+                prevEl: ".arrow.is-left"
+            }
         });
-        
+
         let contentSwiper = new Swiper(".swiper.is-content", {
-          speed: 0,
-          loop: true,
-          followFinger: false,
-          effect: 'fade',
-          fadeEffect: {
-            crossFade: true
-          }
+            speed: 0,
+            loop: true,
+            followFinger: false,
+            effect: 'fade',
+            fadeEffect: {
+                crossFade: true
+            }
         });
-        
+
         photoSwiper.controller.control = contentSwiper;
         contentSwiper.controller.control = photoSwiper;
     </script>
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-Yaha photos ke liye jo codes use huyi hai un sabko remove kardo. Aur uske jagah herf attributes se images add honewale codes ko add kardo
