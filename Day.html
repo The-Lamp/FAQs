@@ -9,9 +9,6 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div id="top-section" style="text-align: center; margin-top: 20px;">
-  <h1 id="heading" style="display: inline-block; margin-right: 20px;">Countdown to My Birthday</h1>
-</div>
   <div id="countdown">
     <div class="countdown-section">
       <div class="countdown-value" id="months">0</div>
@@ -52,10 +49,6 @@
   <!-- Confetti and Balloons -->
   <div id="confetti-container"></div>
   <div id="balloon-container"></div>
-
-  <div id="age-display" style="text-align: center; margin-top: 50px; font-size: 1.2em;">
-  <p>Scroll down to know my age!</p>
-  </div>
 
   <script>
     const targetDate = new Date(new Date().getFullYear(), 6, 25, 0, 0, 0); // July 25th
@@ -154,39 +147,6 @@
     }
 
     const countdownInterval = setInterval(updateCountdown, 1000);
-  
-  
-  // Smooth scrolling fix for age display
-  document.addEventListener('scroll', function () {
-    const ageDisplay = document.getElementById('age-display');
-    if (window.scrollY > 100) { // Trigger age display when scrolling
-      const birthDate = new Date(2007, 6, 25); // 25 July 2007
-      const now = new Date();
-      
-      // Calculate years, months, and days
-      let years = now.getFullYear() - birthDate.getFullYear();
-      let months = now.getMonth() - birthDate.getMonth();
-      let days = now.getDate() - birthDate.getDate();
-
-      if (days < 0) {
-        months -= 1;
-        days += new Date(now.getFullYear(), now.getMonth(), 0).getDate();
-      }
-      if (months < 0) {
-        years -= 1;
-        months += 12;
-      }
-
-      // Display age dynamically
-      ageDisplay.innerHTML = `
-        <p>I am <strong>${years}</strong> years, 
-        <strong>${months}</strong> months, and 
-        <strong>${days}</strong> days old.</p>`;
-    }
-  });
-
-  // Ensure enough content for smooth scrolling
-  document.body.style.minHeight = "200vh"; // Add vertical space
   </script>
 </body>
 </html>
