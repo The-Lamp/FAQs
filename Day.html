@@ -18,7 +18,7 @@
       background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
       font-family: 'Pacifico', cursive;
       color: #fff;
-      overflow: hidden;
+      overflow: visible;
     }
 
     /* Countdown Styles */
@@ -90,10 +90,11 @@
 
     /* Balloon Styles */
     .balloon {
-      position: absolute;
-      font-size: 4rem;
-      animation: float 5s linear infinite;
-      cursor: pointer;
+  position: absolute;
+  font-size: 4rem; /* Adjust size if needed */
+  animation: float 5s linear infinite;
+  cursor: pointer;
+  z-index: 10; /* Ensure balloons appear on top */
     }
 
     @keyframes float {
@@ -107,6 +108,15 @@
       }
     }
 
+    #balloon-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; /* Ensures balloons move to the top of the screen */
+  pointer-events: none;
+    }
+    
     .blast {
       position: absolute;
       font-size: 3rem;
