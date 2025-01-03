@@ -23,28 +23,60 @@
     }
 
     /* Countdown Styles */
-    #countdown-container {
-      text-align: center;
-    }
+ /* Countdown Display Inspired by Uploaded Design */
+#countdown-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
-    #countdown {
-      font-size: 6rem;
-      font-family: 'Russo One', sans-serif;
-      font-weight: 700;
-      background: linear-gradient(90deg, #ff6a00, #ee0979);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: pulse 1s infinite;
-    }
+#countdown {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
+  color: #fff;
+}
 
-    @keyframes pulse {
-      0%, 100% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.1);
-      }
-    }
+.countdown-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Russo One', sans-serif;
+}
+
+.countdown-value {
+  font-size: 6rem;
+  background: linear-gradient(to right, #ff6a00, #ee0979);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+  animation: pulse 1s infinite;
+}
+
+.countdown-label {
+  font-size: 1.5rem;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  #countdown {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .countdown-value {
+    font-size: 4rem;
+  }
+  .countdown-label {
+    font-size: 1rem;
+  }
+}
 
     /* Birthday Message Styles */
     #birthday-message {
@@ -130,6 +162,29 @@
   </style>
 </head>
 <body>
+  <div id="countdown">
+  <div class="countdown-section">
+    <div class="countdown-value" id="months">0</div>
+    <div class="countdown-label">Months</div>
+  </div>
+  <div class="countdown-section">
+    <div class="countdown-value" id="days">0</div>
+    <div class="countdown-label">Days</div>
+  </div>
+  <div class="countdown-section">
+    <div class="countdown-value" id="hours">0</div>
+    <div class="countdown-label">Hours</div>
+  </div>
+  <div class="countdown-section">
+    <div class="countdown-value" id="minutes">0</div>
+    <div class="countdown-label">Minutes</div>
+  </div>
+  <div class="countdown-section">
+    <div class="countdown-value" id="seconds">0</div>
+    <div class="countdown-label">Seconds</div>
+  </div>
+  </div>
+  
   <!-- Countdown Section -->
   <div id="countdown-container">
     <div id="countdown">60</div>
@@ -158,17 +213,26 @@
 
     // Update countdown for months, days, hours, minutes, and seconds
     function updateCountdown() {
-      const now = new Date();
-      const timeDiff = targetDate - now;
+  const now = new Date();
+  const timeDiff = targetDate - now;
 
-      if (timeDiff > 0) {
-        const months = Math.floor(timeDiff / (1000 * 60 * 60 * 24 * 30));
-        const days = Math.floor((timeDiff % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+  if (timeDiff > 0) {
+    const months = Math.floor(timeDiff / (1000 * 60 * 60 * 24 * 30));
+    const days = Math.floor((timeDiff % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
 
-        countdownElement.textContent = `${months}M ${days}D ${hours}H ${minutes}M ${seconds}S`;
+    document.getElementById('months').textContent = months;
+    document.getElementById('days').textContent = days;
+    document.getElementById('hours').textContent = hours;
+    document.getElementById('minutes').textContent = minutes;
+    document.getElementById('seconds').textContent = seconds;
+  } else {
+    clearInterval(interval);
+    countdownElement.textContent = "Time's up!";
+  }
+}
 
         // Display specific messages
         if (now.getMonth() === 5) {
