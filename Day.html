@@ -218,18 +218,23 @@
 
 
 
-
-    // Date and Time Logic
+// Date and Time Logic
 const now = new Date();
 const currentMonth = now.getMonth();
 const currentDate = now.getDate();
 const currentHours = now.getHours();
 const currentMinutes = now.getMinutes();
+const currentSeconds = now.getSeconds();
 
 // Define time periods
 const isTodayBirthday = currentMonth === 0 && currentDate === 3; // January 3rd
-const isCountdownPeriod = isTodayBirthday && currentHours === 16 && currentMinutes >= 15 && currentMinutes < 16; // 4:05 PM to 4:06 PM
-const isAnimationPeriod = isTodayBirthday && (currentHours > 16 || (currentHours === 16 && currentMinutes >= 16)) && currentHours < 24; // 4:06 PM to 11:59 PM
+const isCountdownPeriod = isTodayBirthday && currentHours === 16 && currentMinutes >= 35 && currentMinutes < 36; // 4:05 PM to 4:06 PM
+const isAnimationPeriod = isTodayBirthday && (currentHours > 16 || (currentHours === 16 && currentMinutes >= 36)) && currentHours < 24; // 4:06 PM to 11:59 PM
+
+// Automatic Refresh at 4:06 PM
+if (isTodayBirthday && currentHours === 16 && currentMinutes === 6 && currentSeconds === 0) {
+  location.reload(); // Refresh the page at 4:06:00 PM
+}
 
 // Initial State Management
 const mainContainer = document.getElementById('countdown-container');
@@ -257,6 +262,24 @@ if (!isTodayBirthday || (!isCountdownPeriod && !isAnimationPeriod)) {
   launchBalloons();
 } else if (isCountdownPeriod) {
   // Ensure countdown starts and runs properly
+  const endTime = new Date();
+  endTime.setHours(16, 6, 0, 0); // Exact 4:06 PM
+  const remainingTime = Math.max(0, Math.floor((endTime - now) / 1000)); // Remaining seconds
+
+  countdownElement.textContent = remainingTime; // Initialize with remaining time
+
+  const interval = setInterval(() => {
+    if (remainingTime <= 0) {
+      clearInterval(interval);
+      countdownElement.style.display = 'none';
+      birthdayMessageElement.style.display = 'block';
+      launchConfetti();
+      launchBalloons();
+    } else {
+      countdownElement.textContent = --remainingTime;
+    }
+  }, 1000);
+
   mainContainer.style.display = 'block';
   birthdayMessageElement.style.display = 'none';
 }
