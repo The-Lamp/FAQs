@@ -215,6 +215,51 @@
         blast.remove();
       }, 1000);
     }
+
+
+
+
+    // Date and Time Logic
+const now = new Date();
+const currentMonth = now.getMonth();
+const currentDate = now.getDate();
+const currentHours = now.getHours();
+const currentMinutes = now.getMinutes();
+
+// Define time periods
+const isTodayBirthday = currentMonth === 0 && currentDate === 3; // January 3rd
+const isCountdownPeriod = isTodayBirthday && currentHours === 16 && currentMinutes >= 5 && currentMinutes < 6; // 4:05 PM to 4:06 PM
+const isAnimationPeriod = isTodayBirthday && (currentHours > 16 || (currentHours === 16 && currentMinutes >= 6)) && currentHours < 24; // 4:06 PM to 11:59 PM
+
+// Initial State Management
+const mainContainer = document.getElementById('countdown-container');
+const textContainer = document.createElement('div');
+textContainer.id = 'coming-soon';
+textContainer.style.textAlign = 'center';
+textContainer.style.fontSize = '3rem';
+textContainer.style.color = '#ffffff';
+textContainer.style.fontFamily = "'Pacifico', cursive";
+
+if (!isTodayBirthday || (!isCountdownPeriod && !isAnimationPeriod)) {
+  // Show "Birthday will coming soon" text
+  mainContainer.style.display = 'none';
+  birthdayMessageElement.style.display = 'none';
+  confettiContainer.style.display = 'none';
+  balloonContainer.style.display = 'none';
+
+  textContainer.textContent = "Birthday will coming soon";
+  document.body.appendChild(textContainer);
+} else if (isAnimationPeriod && !isCountdownPeriod) {
+  // Show animations without countdown
+  countdownElement.style.display = 'none';
+  birthdayMessageElement.style.display = 'block';
+  launchConfetti();
+  launchBalloons();
+} else if (isCountdownPeriod) {
+  // Ensure countdown starts and runs properly
+  mainContainer.style.display = 'block';
+  birthdayMessageElement.style.display = 'none';
+}
   </script>
 </body>
 </html>
