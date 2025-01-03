@@ -1,105 +1,95 @@
-console.clear();
+const targetDate = new Date(new Date().getFullYear(), 6, 25, 0, 0, 0); // July 25th
+    const mainCountdownElement = document.getElementById('countdown');
+    const finalCountdownElement = document.getElementById('final-countdown');
+    const birthdayMessageElement = document.getElementById('birthday-message');
+    const confettiContainer = document.getElementById('confetti-container');
+    const balloonContainer = document.getElementById('balloon-container');
 
-/* COUNTDOWN */ 
-/*
-original code from iCodeThis xmas challenge: https://icodethis.com/modes/design-to-code/252/submissions/270252
-*/
+    function updateCountdown() {
+      const now = new Date();
+      const timeDiff = targetDate - now;
 
-const today = new Date();
-const currentYear = today.getFullYear();
+      if (timeDiff > 0) {
+        const months = Math.floor(timeDiff / (1000 * 60 * 60 * 24 * 30));
+        const days = Math.floor((timeDiff % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
 
-// Check if Christmas has passed for the current year
-const christmasThisYear = new Date(`${currentYear}-12-25T00:00:00`);
-const EXP_DATE = today <= christmasThisYear ? christmasThisYear : new Date(`${currentYear + 1}-12-25T00:00:00`);
-const SPEED = 150;
-
-
-/***************** COUNTDOWN ********************/
-const panelCountdown = document.querySelector("#panel-countdown");
-
-// Select elements and spans dynamically
-const countdownElements = ["months", "days", "hours", "minutes", "seconds"];
-const elements = {};
-const currentValues = {};
-
-countdownElements.forEach((id) => {
-  elements[id] = document.querySelectorAll(`#${id} span`);
-  currentValues[id] = [];
-});
-
-
-function getCurrentDate() {
-  const currentDate = new Date();
-  const timeDifference = EXP_DATE - currentDate;
-
-  return {
-    months: Math.floor((timeDifference % (1000 * 60 * 60 * 24 * 365.25)) / (1000 * 60 * 60 * 24 * 30.44)),
-    days: Math.floor((timeDifference % (1000 * 60 * 60 * 24 * 30.44)) / (1000 * 60 * 60 * 24)),
-    hours: Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-    minutes: Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60)),
-    seconds: Math.floor((timeDifference % (1000 * 60)) / 1000),
-  };
-}
-
-function updateCountdown() {
-  const currentDate = getCurrentDate();
-
-  countdownElements.forEach((unit, index) => {
-    const paddedValue = padTo2(currentDate[unit]);
-
-    paddedValue.split("").forEach((digit, i) => {
-      if (digit !== currentValues[unit][i]) {
-        changeNum(elements[unit][i], digit, SPEED * (countdownElements.length - index));
+        document.getElementById('months').textContent = months;
+        document.getElementById('days').textContent = days;
+        document.getElementById('hours').textContent = hours;
+        document.getElementById('minutes').textContent = minutes;
+        document.getElementById('seconds').textContent = seconds;
+      } else {
+        clearInterval(countdownInterval);
+        startFinalCountdown();
       }
-    });
+    }
 
-    currentValues[unit] = paddedValue.split("");
-  });
-}
+function startFinalCountdown() {
+      mainCountdownElement.style.display = 'none';
+      finalCountdownElement.parentElement.style.display = 'block';
 
-function initialLoad() {
-  const currentDate = getCurrentDate();
+      let countdown = 60;
+      finalCountdownElement.textContent = countdown;
 
-  countdownElements.forEach((unit) => {
-    const paddedValue = padTo2(currentDate[unit]);
-    currentValues[unit] = paddedValue.split("");
+      const finalInterval = setInterval(() => {
+        countdown--;
+        finalCountdownElement.textContent = countdown;
 
-    elements[unit][0].innerText = currentValues[unit][0];
-    elements[unit][1].innerText = currentValues[unit][1];
-  });
-}
+        if (countdown <= 0) {
+          clearInterval(finalInterval);
+          finalCountdownElement.parentElement.style.display = 'none';
+          birthdayMessageElement.style.display = 'block';
+          launchConfetti();
+          launchBalloons();
+        }
+      }, 1000);
+    }
 
-// Initialize the countdown display
-initialLoad();
+    function launchConfetti() {
+      for (let i = 0; i < 100; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.animationDelay = Math.random() * 3 + 's';
+        confetti.style.backgroundColor = randomColor();
+        confettiContainer.appendChild(confetti);
+      }
+    }
 
-// Interval to update the countdown every second
-let EXP_DATEInterval;
+    function randomColor() {
+      const colors = ['#ff6a00', '#ee0979', '#fad0c4', '#ff0077', '#00c9ff'];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
 
-function startCountdownInterval() {
-  clearInterval(EXP_DATEInterval);
-  EXP_DATEInterval = setInterval(updateCountdown, 1000);
-}
-startCountdownInterval();
+    function launchBalloons() {
+      for (let i = 0; i < 20; i++) {
+        const balloon = document.createElement('div');
+        balloon.classList.add('balloon');
+        balloon.textContent = '🎈';
+        balloon.style.left = Math.random() * 100 + 'vw';
+        balloon.style.animationDelay = Math.random() * 5 + 's';
 
-// change the numbers
-function changeNum(el, newVal, timing) {
-  el.style.scale = 0;
-  setTimeout(() => {
-    el.innerText = "";
-    el.style.translate = '0 -5rem';
-    setTimeout(() => {
-        el.style.scale = 1;
-        el.innerText = newVal;
-        setTimeout(() => {
-            el.style.translate = '0';
-        }, timing);
-    }, timing);
-  }, timing);
-}
+        balloon.addEventListener('click', () => popBalloon(balloon));
+        balloonContainer.appendChild(balloon);
+      }
+    }
+function popBalloon(balloon) {
+      const blast = document.createElement('div');
+      blast.classList.add('blast');
+      blast.textContent = '💥';
+      blast.style.left = balloon.style.left;
+      blast.style.top = balloon.getBoundingClientRect().top + 'px';
 
+      document.body.appendChild(blast);
 
+      balloon.remove();
 
+      setTimeout(() => {
+        blast.remove();
+      }, 1000);
+    }
 
-function padTo2(num) {
-  return num.toString().padStart(2, "0");
-}
+    const countdownInterval = setInterval(updateCountdown, 1000);
