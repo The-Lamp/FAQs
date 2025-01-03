@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interactive Balloons</title>
+  <title>Birthday Countdown with Balloons</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.1.3/darkly/bootstrap.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Russo+One&display=swap" rel="stylesheet">
   <style>
@@ -59,48 +59,51 @@
       margin-bottom: 20px;
     }
 
+    /* Confetti Animation */
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #fff;
+      animation: fall 3s linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Random colors for confetti */
+    .confetti:nth-child(odd) {
+      background-color: #ff6a00;
+    }
+
+    .confetti:nth-child(even) {
+      background-color: #ff0077;
+    }
+
     /* Balloon Styles */
     .balloon {
       position: absolute;
-      font-size: 4rem;
-      animation: float 7s linear infinite;
+      font-size: 2rem;
+      animation: float 5s linear infinite;
       cursor: pointer;
     }
 
-    /* Float Animations */
-    @keyframes float-up {
+    @keyframes float {
       0% {
-        transform: translateY(100vh);
+        transform: translateY(100vh) translateX(0);
+        opacity: 1;
       }
       100% {
-        transform: translateY(-120vh);
-      }
-    }
-
-    @keyframes float-down {
-      0% {
-        transform: translateY(-120vh);
-      }
-      100% {
-        transform: translateY(100vh);
-      }
-    }
-
-    @keyframes float-left {
-      0% {
-        transform: translateX(-100vw);
-      }
-      100% {
-        transform: translateX(100vw);
-      }
-    }
-
-    @keyframes float-right {
-      0% {
-        transform: translateX(100vw);
-      }
-      100% {
-        transform: translateX(-100vw);
+        transform: translateY(-120vh) translateX(calc(30vw * (-1 + Math.random())));
+        opacity: 0;
       }
     }
 
@@ -133,12 +136,16 @@
     <h1>🎉 Today is My Birthday!</h1>
   </div>
 
+  <!-- Confetti Container -->
+  <div id="confetti-container"></div>
+
   <!-- Balloon Container -->
   <div id="balloon-container"></div>
 
   <script>
     const countdownElement = document.getElementById('countdown');
     const birthdayMessageElement = document.getElementById('birthday-message');
+    const confettiContainer = document.getElementById('confetti-container');
     const balloonContainer = document.getElementById('balloon-container');
     let countdown = 10;
 
@@ -151,59 +158,53 @@
         clearInterval(interval);
         countdownElement.style.display = 'none';
         birthdayMessageElement.style.display = 'block';
+        launchConfetti();
         launchBalloons();
       }
     }, 1000);
 
-    // Balloon Launch Logic
+    // Confetti Logic
+    function launchConfetti() {
+      for (let i = 0; i < 100; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.animationDelay = Math.random() * 3 + 's';
+        confetti.style.backgroundColor = randomColor();
+        confettiContainer.appendChild(confetti);
+      }
+    }
+
+    // Generate Random Color for Confetti
+    function randomColor() {
+      const colors = ['#ff6a00', '#ee0979', '#fad0c4', '#ff0077', '#00c9ff'];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    // Balloon Logic
     function launchBalloons() {
-      const isMobile = window.innerWidth <= 768;
-
-      // Mobile: Two directions only
-      const directions = isMobile
-        ? ['up', 'down']
-        : ['up', 'down', 'left', 'right'];
-
       for (let i = 0; i < 20; i++) {
-        const direction = directions[Math.floor(Math.random() * directions.length)];
-        const balloon = createBalloon(direction);
+        const balloon = document.createElement('div');
+        balloon.classList.add('balloon');
+        balloon.textContent = '🎈';
+        balloon.style.left = Math.random() * 100 + 'vw';
+        balloon.style.animationDelay = Math.random() * 5 + 's';
+
+        balloon.addEventListener('click', () => popBalloon(balloon));
+
         balloonContainer.appendChild(balloon);
       }
     }
 
-    // Create Balloons with Random Motion
-    function createBalloon(direction) {
-      const balloon = document.createElement('div');
-      balloon.classList.add('balloon');
-      balloon.textContent = '🎈';
-
-      if (direction === 'up') {
-        balloon.style.left = Math.random() * 100 + 'vw';
-        balloon.style.animationName = 'float-up';
-      } else if (direction === 'down') {
-        balloon.style.left = Math.random() * 100 + 'vw';
-        balloon.style.animationName = 'float-down';
-      } else if (direction === 'left') {
-        balloon.style.top = Math.random() * 100 + 'vh';
-        balloon.style.animationName = 'float-left';
-      } else if (direction === 'right') {
-        balloon.style.top = Math.random() * 100 + 'vh';
-        balloon.style.animationName = 'float-right';
-      }
-
-      balloon.addEventListener('click', () => popBalloon(balloon));
-      return balloon;
-    }
-
-    // Pop Balloon Animation
     function popBalloon(balloon) {
       const blast = document.createElement('div');
       blast.classList.add('blast');
       blast.textContent = '💥';
-      blast.style.left = balloon.style.left || balloon.getBoundingClientRect().left + 'px';
-      blast.style.top = balloon.style.top || balloon.getBoundingClientRect().top + 'px';
+      blast.style.left = balloon.style.left;
+      blast.style.top = balloon.getBoundingClientRect().top + 'px';
 
       document.body.appendChild(blast);
+
       balloon.remove();
 
       setTimeout(() => {
