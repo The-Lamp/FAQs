@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <h1 id="heading" style="text-align: center; margin-top: 20px;">Countdown to My Birthday</h1>
   <div id="countdown">
     <div class="countdown-section">
       <div class="countdown-value" id="months">0</div>
@@ -45,6 +46,10 @@
   <!-- Confetti and Balloons -->
   <div id="confetti-container"></div>
   <div id="balloon-container"></div>
+
+  <div id="age-display" style="text-align: center; margin-top: 50px; font-size: 1.2em;">
+  <p>Scroll down to know my age!</p>
+  </div>
 
   <script>
     const targetDate = new Date(new Date().getFullYear(), 6, 25, 0, 0, 0); // July 25th
@@ -143,6 +148,22 @@
     }
 
     const countdownInterval = setInterval(updateCountdown, 1000);
+  
+  document.addEventListener('scroll', function () {
+    const ageDisplay = document.getElementById('age-display');
+    if (window.scrollY > 200) {
+      const birthDate = new Date(2007, 6, 25); // 25 July 2007
+      const now = new Date();
+      const ageYears = now.getFullYear() - birthDate.getFullYear();
+      const ageMonths = now.getMonth() - birthDate.getMonth() + (ageYears * 12);
+      const ageDays = Math.floor((now - birthDate) / (1000 * 60 * 60 * 24));
+
+      ageDisplay.innerHTML = `
+        <p>I am <strong>${ageYears}</strong> years, 
+        <strong>${ageMonths % 12}</strong> months, and 
+        <strong>${ageDays}</strong> days old.</p>`;
+    }
+  });
   </script>
 </body>
 </html>
