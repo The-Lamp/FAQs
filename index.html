@@ -58,44 +58,6 @@
   <!-- Confetti and Balloons -->
   <div id="confetti-container"></div>
   <div id="balloon-container"></div>
-<script>
-  // Set your birthdate (25 July 2007)
-const birthDate = new Date("2007-07-25T00:00:00"); // YYYY-MM-DD format
-
-// Function to calculate live age
-function calculateAge() {
-  try {
-    const now = new Date();
-    let years = now.getFullYear() - birthDate.getFullYear();
-    let months = now.getMonth() - birthDate.getMonth();
-    let days = now.getDate() - birthDate.getDate();
-
-    // Adjust for negative values
-    if (days < 0) {
-      months--;
-      const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0).getDate(); // Days in the previous month
-      days += prevMonth;
-    }
-    if (months < 0) {
-      years--;
-      months += 12;
-    }
-
-    // Display the calculated age
-    const ageElement = document.getElementById("live-age");
-    if (ageElement) {
-      ageElement.textContent = `${years} Years, ${months} Months, and ${days} Days`;
-    } else {
-      console.error("Element with ID 'live-age' not found.");
-    }
-  } catch (error) {
-    console.error("Error calculating age:", error);
-  }
-}
-
-// Call the function every second to update the age live
-setInterval(calculateAge, 1000);
-                                 </script>
   
   <script src="script.js"></script>
 </body>
