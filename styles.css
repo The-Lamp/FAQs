@@ -16,7 +16,7 @@ header {
   position: relative; /* Changed from absolute to relative */
   width: 100%;
   text-align: center;
-  margin-bottom: 80px; /* Add more space below the header */
+  margin-bottom: 50px; /* Add more space below the header */
 }
 header h1 {
   font-family: 'Russo One', sans-serif;
