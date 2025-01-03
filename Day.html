@@ -19,7 +19,7 @@
       font-family: 'Pacifico', cursive;
       color: #fff;
       overflow: hidden;
-      scroll-behavior: smooth; /* Smooth scrolling */
+      scroll-behavior: smooth;
     }
 
     /* Countdown Styles */
@@ -48,14 +48,11 @@
 
     /* Birthday Message Styles */
     #birthday-message {
-      display: none;
-      text-align: center;
-      animation: fadeIn 1.5s ease-in-out forwards;
-      user-select: none; /* Prevent text selection */
-      -webkit-user-select: none;
-      -ms-user-select: none;
+  user-select: none; /* Prevent text selection */
+  -webkit-user-select: none; /* For Webkit browsers */
+  -ms-user-select: none; /* For IE/Edge */
     }
-
+    
     h1 {
       font-size: 4rem;
       text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.4);
@@ -102,6 +99,7 @@
   <!-- Birthday Message Section -->
   <div id="birthday-message">
     <h1>🎉 Today is My Birthday!</h1>
+    </div>
   </div>
 
   <!-- Confetti Container -->
