@@ -228,8 +228,8 @@ const currentMinutes = now.getMinutes();
 
 // Define time periods
 const isTodayBirthday = currentMonth === 0 && currentDate === 3; // January 3rd
-const isCountdownPeriod = isTodayBirthday && currentHours === 16 && currentMinutes >= 5 && currentMinutes < 6; // 4:05 PM to 4:06 PM
-const isAnimationPeriod = isTodayBirthday && (currentHours > 16 || (currentHours === 16 && currentMinutes >= 6)) && currentHours < 24; // 4:06 PM to 11:59 PM
+const isCountdownPeriod = isTodayBirthday && currentHours === 16 && currentMinutes >= 10 && currentMinutes < 11; // 4:05 PM to 4:06 PM
+const isAnimationPeriod = isTodayBirthday && (currentHours > 16 || (currentHours === 16 && currentMinutes >= 11)) && currentHours < 24; // 4:06 PM to 11:59 PM
 
 // Initial State Management
 const mainContainer = document.getElementById('countdown-container');
