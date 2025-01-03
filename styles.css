@@ -1,89 +1,152 @@
-@import url(https://fonts.bunny.net/css?family=aclonica:400|economica:400,700);
-:root {
-  --clr-primary: rgb(220, 38, 38);
-}
-body {
-  background-color: #91a1b0;
-  font-family: "Aclonica", sans-serif;
+/* General Styles */
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
+      font-family: 'Pacifico', cursive;
+      color: #fff;
+      overflow: hidden;
+      scroll-behavior: smooth;
+    }
+
+    /* Countdown Styles */
+ /* Countdown Display Inspired by Uploaded Design */
+#countdown-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
-  color: var(--clr-primary);
-}
-body::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("https://images.pexels.com/photos/1303098/pexels-photo-1303098.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
-  background-size: cover;
-  background-position: center;
-  z-index: -1;
+  align-items: center;
+  justify-content: center;
 }
 
-h1 {
-  font-size: clamp(1.2rem, 4.5vw - 0.5rem, 3rem);
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-align: center;
-}
-.countdown {
-  width: min(100% - 2rem, 48rem);
-  margin-inline: auto;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.75rem;
-  color: #0a3d4c;
-  font-size: clamp(2rem, 4.5vw - 0.5rem, 3rem);
-}
-.countdown > div:last-child {
-  grid-column-end: 4;
+#countdown {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
+  color: #fff;
 }
 
-@media (min-width: 500px) {
-  .countdown {
-    grid-template-columns: repeat(10, 1fr);
-  }
-  .countdown > div:last-child {
-    grid-column-end: auto;
-  }
+.countdown-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Russo One', sans-serif;
 }
-.countdown > div {
-  grid-column: span 2;
 
-  background-color: rgba(5 46 22 / .75);
-  color: white;
-  padding: 1rem 1rem 3rem;
-  border-radius: 0.5rem;
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  overflow: hidden;
-  transition: all 0.2s;
-}
-.countdown > div > span {
-  display: grid;
-  place-content: center;
+.countdown-value {
+  font-size: 6rem;
+  background: linear-gradient(to right, #ff6a00, #ee0979);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   font-weight: bold;
-  transition: translate 150ms ease, scale 150ms ease;
+  animation: pulse 1s infinite;
 }
-.countdown > div::after {
-  content: attr(data-desc);
-  font-size: 0.8rem;
-  position: absolute;
-  text-transform: capitalize;
-  bottom: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  @starting-style {
-    scale: 0;
-    opacity: 0;
-    translate: 0 100px;
+
+.countdown-label {
+  font-size: 1.5rem;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  #countdown {
+    flex-direction: column;
+    gap: 10px;
   }
-  transition: 300ms ease-in-out var(--d);
+  .countdown-value {
+    font-size: 4rem;
+  }
+  .countdown-label {
+    font-size: 1rem;
+  }
 }
+
+    /* Birthday Message Styles */
+    #birthday-message {
+      display: none;
+      text-align: center;
+      animation: fadeIn 1.5s ease-in-out forwards;
+      user-select: none; /* Prevent text selection */
+      -webkit-user-select: none; /* For Webkit browsers */
+      -ms-user-select: none; /* For IE/Edge */
+    }
+
+    h1 {
+      font-size: 4rem;
+      text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.4);
+      color: #ff0077;
+      margin-bottom: 20px;
+    }
+
+/* Confetti Animation */
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #fff;
+      animation: fall 3s linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Random colors for confetti */
+    .confetti:nth-child(odd) {
+      background-color: #ff6a00;
+    }
+
+    .confetti:nth-child(even) {
+      background-color: #ff0077;
+    }
+
+    /* Balloon Styles */
+    .balloon {
+      position: absolute;
+      font-size: 4rem;
+      animation: float 5s linear infinite;
+      cursor: pointer;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) translateX(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-120vh) translateX(calc(30vw * (-1 + Math.random())));
+        opacity: 0;
+      }
+    }
+
+.blast {
+      position: absolute;
+      font-size: 3rem;
+      animation: blastEffect 1s ease-in-out;
+    }
+
+    @keyframes blastEffect {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(2);
+        opacity: 0;
+      }
+    }
