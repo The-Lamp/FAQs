@@ -93,3 +93,31 @@ function popBalloon(balloon) {
     }
 
     const countdownInterval = setInterval(updateCountdown, 1000);
+
+// Set your birthdate here (25 July 2007)
+const birthDate = new Date("2007-07-25T00:00:00"); // YYYY-MM-DD format
+
+// Function to calculate live age
+function calculateAge() {
+  const now = new Date();
+  let years = now.getFullYear() - birthDate.getFullYear();
+  let months = now.getMonth() - birthDate.getMonth();
+  let days = now.getDate() - birthDate.getDate();
+
+  // Adjust for negative values
+  if (days < 0) {
+    months--;
+    const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0).getDate(); // Days in the previous month
+    days += prevMonth;
+  }
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+
+  // Display age
+  document.getElementById("live-age").textContent = `${years} Years, ${months} Months, and ${days} Days`;
+}
+
+// Call the function every second to update the age live
+setInterval(calculateAge, 1000);
