@@ -4,164 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Birthday Celebration</title>
-    <style>
-        /* General Styles */
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #6a11cb, #2575fc);
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            overflow: hidden;
-        }
-        h1, h2 {
-            margin: 20px 0;
-        }
-
-        /* Header */
-        header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-        header h1 {
-            font-size: 2.5rem;
-            text-transform: uppercase;
-            font-weight: 700;
-            letter-spacing: 3px;
-            background: linear-gradient(90deg, #ff7eb3, #ff758c);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        header p {
-            font-size: 1rem;
-            opacity: 0.8;
-        }
-
-        /* Countdown and Age Calculator */
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 30px;
-            width: 90%;
-            max-width: 700px;
-        }
-        .box {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px 30px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-            width: 100%;
-        }
-        .box h2 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-        }
-        .box p {
-            font-size: 1.2rem;
-            line-height: 1.5;
-        }
-
-        /* Footer */
-        footer {
-            margin-top: 50px;
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
-        /* Responsive Design */
-        @media screen and (max-width: 600px) {
-            header h1 {
-                font-size: 2rem;
-            }
-            .box h2 {
-                font-size: 1.3rem;
-            }
-            .box p {
-                font-size: 1rem;
-            }
-        }
-    </style>
 </head>
 <body>
-
-    <!-- Header Section -->
-    <header>
-        <h1>Birthday Celebration</h1>
-        <p>Countdown and Age Calculator</p>
-    </header>
-
-    <!-- Main Content -->
-    <div class="container">
-        <!-- Countdown Timer -->
-        <div class="box">
-            <h2>Countdown to My Birthday</h2>
-            <p id="countdown"></p>
-        </div>
-
-        <!-- Live Age Calculator -->
-        <div class="box">
-            <h2>Live Age Calculator</h2>
-            <p id="live-age"></p>
-        </div>
-    </div>
-
-    <!-- Footer Section -->
-    <footer>
-        &copy; 2025 My Stylish Birthday Celebration
-    </footer>
-
-    <script>
-        // Countdown Timer
-        const birthday = new Date('2025-07-25'); // Next birthday
-        const countdownElement = document.getElementById('countdown');
-
-        function updateCountdown() {
-            const now = new Date();
-            const timeDifference = birthday - now;
-
-            if (timeDifference > 0) {
-                const months = Math.floor(timeDifference / (1000 * 60 * 60 * 24 * 30));
-                const days = Math.floor((timeDifference % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-
-                countdownElement.innerHTML = `
-                    ${months} Months, ${days} Days, 
-                    ${hours} Hours, ${minutes} Minutes, 
-                    ${seconds} Seconds remaining!
-                `;
-            } else {
-                countdownElement.innerHTML = "🎉 Happy Birthday! 🎉";
-            }
-        }
-        setInterval(updateCountdown, 1000);
-
-        // Live Age Calculator
-        const birthDate = new Date('2007-07-25'); // Your birth date
-        const liveAgeElement = document.getElementById('live-age');
-
-        function updateAge() {
-            const now = new Date();
-            const ageMilliseconds = now - birthDate;
-
-            const years = Math.floor(ageMilliseconds / (1000 * 60 * 60 * 24 * 365.25));
-            const months = Math.floor((ageMilliseconds % (1000 * 60 * 60 * 24 * 365.25)) / (1000 * 60 * 60 * 24 * 30.44));
-            const days = Math.floor((ageMilliseconds % (1000 * 60 * 60 * 24 * 30.44)) / (1000 * 60 * 60 * 24));
-
-            liveAgeElement.innerHTML = `
-                ${years} Years, ${months} Months, ${days} Days old!
-            `;
-        }
-        setInterval(updateAge, 1000);
-    </script>
-
+    <h1>Days till Christmas</h1>
+<div class="countdown">
+  <div id="months" data-desc="Months" class="animate-in " style="--d:1800ms">
+    <span>2</span>
+    <span>0</span>
+  </div>
+  <div id="days" data-desc="Days" class="animate-in " style="--d:1500ms">
+    <span>2</span>
+    <span>0</span>
+  </div>
+  <div id="hours" data-desc="Hours" class="animate-in " style="--d:1200ms">
+    <span>2</span>
+    <span>3</span>
+  </div>
+  <div id="minutes" data-desc="minutes" class="animate-in " style="--d:800ms">
+    <span>1</span>
+    <span>2</span>
+  </div>
+  <div id="seconds" data-desc="seconds" class="animate-in " style="--d:500ms">
+    <span>0</span>
+    <span>1</span>
+  </div>
+</div>
 </body>
 </html>
