@@ -51,9 +51,9 @@
       display: none;
       text-align: center;
       animation: fadeIn 1.5s ease-in-out forwards;
-  user-select: none; /* Prevent text selection */
-  -webkit-user-select: none; /* For Webkit browsers */
-  -ms-user-select: none; /* For IE/Edge */
+      user-select: none; /* Prevent text selection */
+      -webkit-user-select: none; /* For Webkit browsers */
+      -ms-user-select: none; /* For IE/Edge */
     }
 
     h1 {
@@ -151,23 +151,63 @@
     const birthdayMessageElement = document.getElementById('birthday-message');
     const confettiContainer = document.getElementById('confetti-container');
     const balloonContainer = document.getElementById('balloon-container');
-    let countdown = 60;
 
-    // Countdown Timer Logic
-    const interval = setInterval(() => {
-      countdown--;
+    // Set Target Date (25th July of current year)
+    const targetDate = new Date(new Date().getFullYear(), 6, 25, 0, 0, 0); // July 25 at 00:00
+    let interval;
+
+    // Update countdown for months, days, hours, minutes, and seconds
+    function updateCountdown() {
+      const now = new Date();
+      const timeDiff = targetDate - now;
+
+      if (timeDiff > 0) {
+        const months = Math.floor(timeDiff / (1000 * 60 * 60 * 24 * 30));
+        const days = Math.floor((timeDiff % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+        countdownElement.textContent = `${months}M ${days}D ${hours}H ${minutes}M ${seconds}S`;
+
+        // Display specific messages
+        if (now.getMonth() === 5) {
+          countdownElement.textContent = "Next month is my birthday!";
+        } else if (now.getMonth() === 6 && now.getDate() < 18) {
+          countdownElement.textContent = "This month is my birthday!";
+        } else if (now.getMonth() === 6 && now.getDate() >= 18 && now.getDate() < 24) {
+          countdownElement.textContent = "Next week is my birthday!";
+        } else if (now.getDate() === 24) {
+          countdownElement.textContent = "This week is my birthday!";
+        }
+      } else if (now.getDate() === 24 && now.getHours() === 23 && now.getMinutes() === 59) {
+        clearInterval(interval);
+        startFinalCountdown();
+      } else {
+        countdownElement.textContent = "Yesterday was my birthday!";
+      }
+    }
+
+    // Final 60-second countdown
+    function startFinalCountdown() {
+      let countdown = 60;
       countdownElement.textContent = countdown;
 
-      if (countdown <= 0) {
-        clearInterval(interval);
-        countdownElement.style.display = 'none';
-        birthdayMessageElement.style.display = 'block';
-        launchConfetti();
-        launchBalloons();
-      }
-    }, 1000);
+      const finalInterval = setInterval(() => {
+        countdown--;
+        countdownElement.textContent = countdown;
 
-    // Confetti Logic
+        if (countdown <= 0) {
+          clearInterval(finalInterval);
+          countdownElement.style.display = 'none';
+          birthdayMessageElement.style.display = 'block';
+          launchConfetti();
+          launchBalloons();
+        }
+      }, 1000);
+    }
+
+    // Launch Confetti Logic
     function launchConfetti() {
       for (let i = 0; i < 100; i++) {
         const confetti = document.createElement('div');
@@ -214,6 +254,18 @@
       setTimeout(() => {
         blast.remove();
       }, 1000);
+    }
+
+    // Start the initial countdown
+    interval = setInterval(updateCountdown, 1000);
+
+    // Restart countdown logic for next year
+    function resetCountdownForNextYear() {
+      const now = new Date();
+      if (now > targetDate) {
+        targetDate.setFullYear(now.getFullYear() + 1);
+        interval = setInterval(updateCountdown, 1000);
+      }
     }
   </script>
 </body>
