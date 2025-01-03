@@ -5,53 +5,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Birthday Countdown</title>
     <style>
-        * {
-            margin: 0;
+        * , *::before, *::after {
             padding: 0;
+            margin: 0;
             box-sizing: border-box;
         }
 
         body {
             background-color: #777;
+            height: 100vh;
+            background-image:
+                linear-gradient(black, transparent 10%, transparent calc(50% - 1px), #aaa calc(50% - 1px), #aaa calc(50% + 1px), transparent calc(50% + 1px), transparent 90%, black),
+                linear-gradient(90deg, black, transparent 10%, transparent calc(50% - 1px), #aaa calc(50% - 1px), #aaa calc(50% + 1px), transparent calc(50% + 1px), transparent 90%, black);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            overflow: hidden;
-            font-family: Arial, sans-serif;
         }
 
         .cont {
-            position: relative;
-            width: 300px;
-            height: 300px;
-            border: 5px solid #aaa;
+            width: 250px;
+            height: 250px;
+            position: fixed;
+            text-align: center;
+            font-weight: bold;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid #aaa;
             border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #333;
+            overflow: hidden;
+        }
+
+        .cont::after {
+            content: '';
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            top: 23px;
+            left: 23px;
+            border: 1px solid #aaa;
+            border-radius: 50%;
+            background: #777;
+            background-image:
+                linear-gradient(transparent calc(50% - 1px), #aaa calc(50% - 1px), #aaa calc(50% + 1px), transparent calc(50% + 1px)),
+                linear-gradient(90deg, transparent calc(50% - 1px), #aaa calc(50% - 1px), #aaa calc(50% + 1px), transparent calc(50% + 1px));
         }
 
         .spinner {
             position: absolute;
-            width: 250px;
-            height: 250px;
-            border: 5px solid transparent;
-            border-top: 5px solid white;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
+            top: 50%;
+            left: 50%;
+            width: 125px;
+            height: 100px;
+            transform-origin: 0 0;
+            background-image: linear-gradient(black, transparent);
+            animation: spin 1s infinite linear;
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            from { transform: rotate(0deg); }
+            to { transform: rotate(-360deg); }
         }
 
         .number {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             font-size: 3rem;
             color: white;
-            font-weight: bold;
             z-index: 2;
         }
 
@@ -59,19 +81,22 @@
             display: none;
         }
 
-        /* Happy Birthday Section */
+        /* Happy Birthday Celebration Section */
         .celebration {
             display: none;
-            position: absolute;
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.8);
-            text-align: center;
             color: white;
+            text-align: center;
             font-size: 2rem;
-            flex-direction: column;
+            display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
         }
 
         .celebration img {
@@ -88,14 +113,20 @@
             position: fixed;
             width: 10px;
             height: 10px;
-            background-color: #fff;
             border-radius: 50%;
-            animation: confetti-fall 5s infinite;
+            background-color: #fff;
+            opacity: 0.8;
+            animation: confetti-fall 3s ease-out infinite, spin-confetti 3s linear infinite;
         }
 
         @keyframes confetti-fall {
             0% { transform: translateY(-100vh) translateX(0); opacity: 1; }
             100% { transform: translateY(100vh) translateX(30px); opacity: 0; }
+        }
+
+        @keyframes spin-confetti {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(180deg); }
         }
     </style>
 </head>
@@ -109,7 +140,9 @@
     <!-- Celebration Section -->
     <div class="celebration" id="celebration">
         <h1>Happy Birthday!</h1>
-        <img src="1000166670-removebg-preview.png" alt="Balloon">
+        <img src="baloon.jpg" alt="Balloon">
+        <img src="baloon.jpg" alt="Balloon">
+        <img src="baloon.jpg" alt="Balloon">
     </div>
 
     <script>
@@ -132,16 +165,16 @@
                 celebrationElement.style.display = 'flex';
 
                 // Add Confetti
-                for (let i = 0; i < 100; i++) {
+                for (let i = 0; i < 150; i++) {
                     const confetti = document.createElement('div');
                     confetti.className = 'confetti';
                     confetti.style.left = Math.random() * window.innerWidth + 'px';
-                    confetti.style.animationDelay = Math.random() * 5 + 's';
                     confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                    confetti.style.animationDelay = Math.random() * 3 + 's';
                     document.body.appendChild(confetti);
 
-                    // Remove confetti after 5 seconds
-                    setTimeout(() => confetti.remove(), 5000);
+                    // Remove confetti after animation
+                    setTimeout(() => confetti.remove(), 3000);
                 }
             }
         }, 1000);
