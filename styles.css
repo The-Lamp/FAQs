@@ -1,6 +1,5 @@
-/* General Styles */
 body {
-  margin: 0;
+  margin: 20px; /* Add margin for proper layout spacing */
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -14,14 +13,11 @@ body {
 
 /* Heading at the top */
 header {
-  position: absolute;
-  top: 20px; /* Positions heading at the top */
+  position: relative; /* Changed from absolute to relative */
   width: 100%;
   text-align: center;
-  z-index: 10;
-  margin-bottom: 80px; /* Add spacing below the heading */
+  margin-bottom: 100px; /* Add more space below the header */
 }
-
 header h1 {
   font-family: 'Russo One', sans-serif;
   font-size: 2.5rem;
@@ -36,7 +32,7 @@ header h1 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 200px; /* Increase space between header and countdown */
+  margin-top: 20px; /* Reduced margin-top since header already has space */
 }
 
 #countdown {
