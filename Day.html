@@ -18,6 +18,7 @@
       background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
       font-family: 'Pacifico', cursive;
       color: #fff;
+      overflow: hidden;
     }
 
     /* Countdown Styles */
@@ -58,21 +59,60 @@
       margin-bottom: 20px;
     }
 
-    /* Button (optional) */
-    .btn {
+    /* Balloon Animation */
+    #balloon-container {
+      display: flex;
+      justify-content: center;
       margin-top: 20px;
-      padding: 10px 20px;
-      font-size: 1.2rem;
-      color: #fff;
-      background: #ee0979;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background 0.3s ease;
     }
 
-    .btn:hover {
-      background: #ff6a00;
+    .balloon {
+      width: 150px;
+      animation: rise 5s ease-in-out infinite;
+    }
+
+    @keyframes rise {
+      0% {
+        transform: translateY(50px) scale(0.9);
+        opacity: 0.8;
+      }
+      50% {
+        transform: translateY(-20px) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-70px) scale(0.9);
+        opacity: 0.8;
+      }
+    }
+
+    /* Confetti Animation */
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #fff;
+      animation: fall 3s linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Random colors for confetti */
+    .confetti:nth-child(odd) {
+      background-color: #ff6a00;
+    }
+
+    .confetti:nth-child(even) {
+      background-color: #ff0077;
     }
   </style>
 </head>
@@ -84,15 +124,22 @@
 
   <!-- Birthday Message Section -->
   <div id="birthday-message">
-    <h1>🎉 Today is My Birthday!</h1>
+    <h1>🎉 Today is My Birthday! 🎉</h1>
+    <div id="balloon-container">
+      <img class="balloon" src="1000166670-removebg-preview.png" alt="Balloon">
     </div>
   </div>
+
+  <!-- Confetti Container -->
+  <div id="confetti-container"></div>
 
   <script>
     const countdownElement = document.getElementById('countdown');
     const birthdayMessageElement = document.getElementById('birthday-message');
+    const confettiContainer = document.getElementById('confetti-container');
     let countdown = 10;
 
+    // Countdown Timer Logic
     const interval = setInterval(() => {
       countdown--;
       countdownElement.textContent = countdown;
@@ -101,8 +148,27 @@
         clearInterval(interval);
         countdownElement.style.display = 'none';
         birthdayMessageElement.style.display = 'block';
+        launchConfetti();
       }
     }, 1000);
+
+    // Confetti Logic
+    function launchConfetti() {
+      for (let i = 0; i < 100; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.animationDelay = Math.random() * 3 + 's';
+        confetti.style.backgroundColor = randomColor();
+        confettiContainer.appendChild(confetti);
+      }
+    }
+
+    // Generate Random Color for Confetti
+    function randomColor() {
+      const colors = ['#ff6a00', '#ee0979', '#fad0c4', '#ff0077', '#00c9ff'];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
   </script>
 </body>
 </html>
