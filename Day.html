@@ -54,9 +54,7 @@
     h1 {
       font-size: 4rem;
       text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.4);
-      background: linear-gradient(to right, #ff0077, #ffdd00);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: #ff0077;
       margin-bottom: 20px;
     }
 
@@ -64,29 +62,26 @@
     #balloon-container {
       display: flex;
       justify-content: center;
-      gap: 15px;
+      margin-top: 20px;
     }
 
     .balloon {
-      width: 120px;
-      animation: floatUp 4s ease-in-out infinite, rotate 3s linear infinite;
+      width: 150px;
+      animation: rise 5s ease-in-out infinite;
     }
 
-    @keyframes floatUp {
-      0%, 100% {
-        transform: translateY(0) rotate(0deg);
+    @keyframes rise {
+      0% {
+        transform: translateY(50px) scale(0.9);
+        opacity: 0.8;
       }
       50% {
-        transform: translateY(-30px) rotate(-5deg);
-      }
-    }
-
-    @keyframes rotate {
-      0% {
-        transform: rotate(0deg);
+        transform: translateY(-20px) scale(1);
+        opacity: 1;
       }
       100% {
-        transform: rotate(360deg);
+        transform: translateY(-70px) scale(0.9);
+        opacity: 0.8;
       }
     }
 
@@ -116,10 +111,8 @@
 
   <!-- Birthday Message Section -->
   <div id="birthday-message">
-    <h1>🎉 Happy Birthday! 🎉</h1>
+    <h1>🎉 Today is My Birthday! 🎉</h1>
     <div id="balloon-container">
-      <img class="balloon" src="1000166670-removebg-preview.png" alt="Balloon">
-      <img class="balloon" src="1000166670-removebg-preview.png" alt="Balloon">
       <img class="balloon" src="1000166670-removebg-preview.png" alt="Balloon">
     </div>
   </div>
