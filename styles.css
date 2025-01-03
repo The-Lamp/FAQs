@@ -10,7 +10,6 @@ body {
   font-family: 'Pacifico', cursive;
   color: #fff;
   overflow: hidden;
-  scroll-behavior: smooth;
 }
 
 /* Heading at the top */
@@ -27,32 +26,34 @@ header h1 {
   font-size: 2.5rem;
   color: #fff;
   text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+  margin-bottom: 30px; /* Added spacing below heading */
 }
 
-/* Countdown Styles */
+/* Countdown Container */
 #countdown-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 100px; /* Adds space below the header */
+  margin-top: 120px; /* Space below the header */
 }
 
 #countdown {
   display: flex;
-  flex-wrap: wrap; /* Allows wrapping into two rows */
-  justify-content: center;
-  gap: 30px;
+  flex-wrap: wrap; /* Allows wrapping for two rows */
+  justify-content: space-evenly; /* Proper spacing between groups */
+  gap: 50px; /* Add spacing between rows */
   width: 100%;
   max-width: 800px; /* Limits the countdown width */
+  padding: 10px; /* Add padding around the container */
 }
 
-/* Group styling for dividing countdown into two rows */
+/* Group styling for horizontal division */
 .group {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  gap: 20px;
+  justify-content: space-between;
+  gap: 40px; /* Add spacing between countdown items */
 }
 
 /* Individual countdown sections */
@@ -60,7 +61,9 @@ header h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
   font-family: 'Russo One', sans-serif;
+  width: 120px; /* Fix width for equal spacing */
 }
 
 .countdown-value {
@@ -70,6 +73,7 @@ header h1 {
   -webkit-text-fill-color: transparent;
   font-weight: bold;
   animation: pulse 1s infinite;
+  margin-bottom: 10px; /* Add spacing below numbers */
 }
 
 .countdown-label {
@@ -82,7 +86,8 @@ header h1 {
 /* Responsive Design */
 @media (max-width: 768px) {
   #countdown {
-    gap: 20px;
+    flex-direction: column;
+    gap: 30px; /* Adjust spacing for small screens */
   }
 
   .countdown-value {
@@ -91,6 +96,23 @@ header h1 {
 
   .countdown-label {
     font-size: 1rem;
+  }
+
+  .group {
+    gap: 20px; /* Reduce spacing for mobile */
+  }
+}
+
+/* Animations */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 
