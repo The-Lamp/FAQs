@@ -5,69 +5,117 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Birthday Celebration</title>
     <style>
+        /* General Styles */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #ff7eb3, #ff758c);
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
             color: white;
-            text-align: center;
-            overflow-x: hidden;
-        }
-        header {
-            background-color: rgba(0, 0, 0, 0.6);
-            padding: 20px;
-            font-size: 24px;
-            font-weight: bold;
-        }
-        .countdown, .age-calculator {
-            margin: 50px 0;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
-            width: 80%;
-            margin-left: auto;
-            margin-right: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
         }
         h1, h2 {
             margin: 20px 0;
         }
-        .interesting-facts {
-            margin: 30px 0;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
-            width: 80%;
-            margin-left: auto;
-            margin-right: auto;
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 50px;
         }
-        .fact {
-            margin: 10px 0;
-            font-size: 18px;
+        header h1 {
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 3px;
+            background: linear-gradient(90deg, #ff7eb3, #ff758c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        header p {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        /* Countdown and Age Calculator */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            width: 90%;
+            max-width: 700px;
+        }
+        .box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+            width: 100%;
+        }
+        .box h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        .box p {
+            font-size: 1.2rem;
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 50px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 600px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            .box h2 {
+                font-size: 1.3rem;
+            }
+            .box p {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
 <body>
-    <header>Welcome to My Birthday Celebration!</header>
 
-    <section class="countdown">
-        <h1>Countdown to My Birthday</h1>
-        <div id="countdown-timer">
-            <h2 id="countdown"></h2>
+    <!-- Header Section -->
+    <header>
+        <h1>Birthday Celebration</h1>
+        <p>Countdown and Age Calculator</p>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Countdown Timer -->
+        <div class="box">
+            <h2>Countdown to My Birthday</h2>
+            <p id="countdown"></p>
         </div>
-    </section>
 
-    <section class="age-calculator">
-        <h1>Live Age Calculator</h1>
-        <h2 id="live-age"></h2>
-    </section>
+        <!-- Live Age Calculator -->
+        <div class="box">
+            <h2>Live Age Calculator</h2>
+            <p id="live-age"></p>
+        </div>
+    </div>
 
-    <section class="interesting-facts">
-        <h1>Interesting Birthday Facts</h1>
-        <div class="fact">🎂 Did you know? People born in July are known for their creativity and charm!</div>
-        <div class="fact">🌟 Your star sign, Leo, is one of the most vibrant and energetic zodiac signs!</div>
-        <div class="fact">🎉 July birthdays are perfect for summer celebrations and outdoor fun!</div>
-    </section>
+    <!-- Footer Section -->
+    <footer>
+        &copy; 2025 My Stylish Birthday Celebration
+    </footer>
 
     <script>
         // Countdown Timer
@@ -114,5 +162,6 @@
         }
         setInterval(updateAge, 1000);
     </script>
+
 </body>
 </html>
